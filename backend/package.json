@@ -3,17 +3,9 @@
   "version": "1.0.0",
   "description": "A project description",
   "main": "index.js",
-  "jest": {
-    "moduleNameMapper": {
-      "^axios$": "axios/dist/node/axios.cjs"
-    }
-  },
+  
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install-backend": "cd backend && npm install",
-    "install-both": "npm install && npm run install-backend",
-    "backend": "cd backend && node index.js",
-    "start-both": "npm run backend & npm start"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

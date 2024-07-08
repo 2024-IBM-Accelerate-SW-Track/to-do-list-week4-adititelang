@@ -25,11 +25,20 @@
     "styled-components": "^5.3.11",
     "web-vitals": "^3.3.2"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --watchAll=false --detectOpenHandles",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "install-backend": "cd backend && npm install",
+    "install-both": "npm install && npm run install-backend",
+    "backend": "cd backend && node index.js",
+    "start-both": "npm run backend & npm start"
   },
   "eslintConfig": {
     "extends": [
