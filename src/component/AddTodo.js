@@ -1,7 +1,10 @@
+import Axios from "axios";
 import React, { Component } from "react";
+
 import { Button, TextField } from "@mui/material";
 import { DesktopDatePicker , LocalizationProvider} from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+
 
 class AddTodo extends Component {
   // Create a local react state of the this component with both content date property set to nothing.
@@ -23,6 +26,7 @@ class AddTodo extends Component {
     });
   };
 
+  
   handleDateChange = (event) => {
     let date = null
     if(event != null){
@@ -32,12 +36,39 @@ class AddTodo extends Component {
       duedate: date
     });
   };
+
+
   // The handleSubmit function collects the forms input and puts it into the react state.
   // event.preventDefault() is called to prevents default event behavior like refreshing the browser.
   // this.props.addTodo(this.state) passes the current state (or user input and current date/time) into the addTodo function defined
   // in the Home.js file which then adds the input into the list.
   handleSubmit = (event) => {
     event.preventDefault();
+
+    const { id, content, date, duedate } = this.state;
+
+    // Create the JSON object
+    const jsonObject = {
+      id,
+      task: content,
+      currentDate: date,
+      dueDate: duedate
+    };
+
+    // Send the POST request
+    Axios({
+      method: "POST",
+      url: "http://localhost:3000/add/item", 
+      data: { jsonObject },
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(res => {
+      console.log(res.data.message);
+    }).catch(err => {
+      console.error("Error:", err);
+    });
+
     if (this.state.content.trim()) {
       this.props.addTodo(this.state);
       this.setState({
@@ -47,6 +78,7 @@ class AddTodo extends Component {
       });
     }
   };
+
   render() {
     return (
       // 1. When rendering a component, you can render as many elements as you like as long as it is wrapped inside
